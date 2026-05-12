@@ -6,9 +6,12 @@ namespace Ahorcado
     {
         private readonly MotorAhorcado _motor;
 
-        public ConsolaUI(MotorAhorcado motor)
+        private readonly PalabrasEnMemoria _repositorio;
+
+        public ConsolaUI(MotorAhorcado motor, PalabrasEnMemoria repositorio)
         {
             _motor = motor;
+            _repositorio = repositorio;
         }
 
         public void MostrarTablero()
@@ -17,7 +20,7 @@ namespace Ahorcado
 
             MostrarAhorcado();
 
-            Console.WriteLine($"Intentos restantes: {_motor.IntentosRestantes}");
+            Console.WriteLine($"Categoría: {_repositorio.CategoriaActual}");
 
             Console.WriteLine($"Letras usadas: {string.Join(", ", _motor.LetrasUsadas)}");
 

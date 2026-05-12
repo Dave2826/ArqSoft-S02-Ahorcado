@@ -4,11 +4,11 @@
     {
         static void Main(string[] args)
         {
-            IRepositorioPalabras repositorio = new PalabrasEnMemoria();
+            PalabrasEnMemoria repositorio = new PalabrasEnMemoria();
 
             MotorAhorcado motor = new MotorAhorcado(repositorio);
 
-            ConsolaUI ui = new ConsolaUI(motor);
+            ConsolaUI ui = new ConsolaUI(motor, repositorio);
 
             while (!motor.Ganado() && !motor.Perdido())
             {
