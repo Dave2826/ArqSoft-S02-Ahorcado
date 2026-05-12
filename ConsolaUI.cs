@@ -21,6 +21,8 @@ namespace Ahorcado
 
             Console.WriteLine($"Letras usadas: {string.Join(", ", _motor.LetrasUsadas)}");
 
+            Console.WriteLine($"Pista: {_motor.ObtenerPista()}");
+
             Console.Write("Palabra: ");
 
             foreach (char c in _motor.PalabraSecreta)

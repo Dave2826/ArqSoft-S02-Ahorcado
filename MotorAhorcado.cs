@@ -48,6 +48,10 @@ namespace Ahorcado
 
             return true;
         }
+        public string ObtenerPista()
+        {
+            return $"La palabra tiene {_palabraSecreta.Length} letras y comienza con '{_palabraSecreta[0]}'.";
+        }
 
         public bool Perdido()
         {
