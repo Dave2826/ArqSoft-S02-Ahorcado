@@ -14,22 +14,40 @@
             {
                 ui.MostrarTablero();
 
-                char letra = ui.PedirLetra();
+                string entrada = ui.PedirEntrada();
 
-                if (motor.LetraYaUsada(letra))
+                if (entrada.Length == 1)
                 {
-                    ui.MostrarMensaje("Ya usaste esa letra.");
-                    continue;
-                }
+                    char letra = entrada[0];
 
-                motor.RegistrarLetra(letra);
+                    if (motor.LetraYaUsada(letra))
+                    {
+                        ui.MostrarMensaje("Ya usaste esa letra.");
+                        continue;
+                    }
+
+                    motor.RegistrarLetra(letra);
+                }
+                else
+                {
+                    bool correcto = motor.IntentarResolver(entrada);
+
+                    if (correcto)
+                    {
+                        ui.MostrarMensaje("Adivinaste la palabra completa.");
+                    }
+                    else
+                    {
+                        ui.MostrarMensaje("Palabra incorrecta.");
+                    }
+                }
             }
 
             ui.MostrarTablero();
 
             if (motor.Ganado())
             {
-                ui.MostrarMensaje("\nGanaste. El barrio gamer te respalda.");
+                ui.MostrarMensaje("\nGanaste. El barrio gamer/motociclista te respalda.");
             }
             else
             {

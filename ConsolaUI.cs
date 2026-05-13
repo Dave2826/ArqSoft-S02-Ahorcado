@@ -36,11 +36,11 @@ namespace Ahorcado
             Console.WriteLine();
         }
 
-        public char PedirLetra()
+        public string PedirEntrada()
         {
             while (true)
             {
-                Console.Write("\nIngresa una letra: ");
+                Console.Write("\nIngresa una letra o palabra: ");
 
                 string entrada = Console.ReadLine()!.Trim().ToLower();
 
@@ -50,19 +50,24 @@ namespace Ahorcado
                     continue;
                 }
 
-                if (entrada.Length != 1)
+                bool valido = true;
+
+                foreach (char c in entrada)
                 {
-                    Console.WriteLine("Solo debes ingresar una letra.");
+                    if (!char.IsLetterOrDigit(c))
+                    {
+                        valido = false;
+                        break;
+                    }
+                }
+
+                if (!valido)
+                {
+                    Console.WriteLine("Solo puedes usar letras y números.");
                     continue;
                 }
 
-                if (!char.IsLetterOrDigit(entrada[0]))
-                {
-                    Console.WriteLine("Debes ingresar una letra o número válido.");
-                    continue;
-                }
-
-                return entrada[0];
+                return entrada;
             }
         }
 
