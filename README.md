@@ -62,16 +62,23 @@ Aplicar refactorización progresiva utilizando buenas prácticas de arquitectura
 ## Capturas del proyecto
 
 ### Juego funcionando
-(Aquí colocar captura del juego corriendo)
+![Juego](capturas/captura1.png)
 
 ### Historial de commits
-(Aquí colocar captura del git log)
+![Commits](capturas/captura2.png)
 
 ### Arquitectura refactorizada
-(Aquí colocar captura de las clases separadas)
+![Arquitectura](capturas/captura3.png)
 
 ---
 
+
+
+## Uso de IA.
+
+Durante el desarrollo del proyecto se utilizó inteligencia artificial como apoyo técnico y guía de aprendizaje en momentos específicos, principalmente para resolver errores, comprender conceptos de refactorización, organizar commits y mejorar la estructura del código.
+
+---
 ## Autor
 
 David Morales Guerrero  
