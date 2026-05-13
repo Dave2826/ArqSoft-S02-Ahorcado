@@ -38,9 +38,32 @@ namespace Ahorcado
 
         public char PedirLetra()
         {
-            Console.Write("\nIngresa una letra: ");
+            while (true)
+            {
+                Console.Write("\nIngresa una letra: ");
 
-            return Console.ReadLine()[0];
+                string entrada = Console.ReadLine()!.Trim().ToLower();
+
+                if (string.IsNullOrWhiteSpace(entrada))
+                {
+                    Console.WriteLine("No puedes dejar el campo vacío.");
+                    continue;
+                }
+
+                if (entrada.Length != 1)
+                {
+                    Console.WriteLine("Solo debes ingresar una letra.");
+                    continue;
+                }
+
+                if (!char.IsLetterOrDigit(entrada[0]))
+                {
+                    Console.WriteLine("Debes ingresar una letra o número válido.");
+                    continue;
+                }
+
+                return entrada[0];
+            }
         }
 
         public void MostrarMensaje(string mensaje)
