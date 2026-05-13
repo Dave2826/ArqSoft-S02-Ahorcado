@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Ahorcado
 {
@@ -18,35 +19,63 @@ namespace Ahorcado
         {
             Console.Clear();
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine("========================================");
+            Console.WriteLine("         ARQSOFT HANGMAN SYSTEM");
+            Console.WriteLine("========================================");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"\nCATEGORIA : {_repositorio.CategoriaActual}");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"PISTA     : {_motor.ObtenerPista()}");
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"INTENTOS  : {_motor.IntentosRestantes}");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"USADAS    : {string.Join(", ", _motor.LetrasUsadas)}");
+
             MostrarAhorcado();
 
-            Console.WriteLine($"Categoría: {_repositorio.CategoriaActual}");
+            Console.ForegroundColor = ConsoleColor.White;
 
-            Console.WriteLine($"Letras usadas: {string.Join(", ", _motor.LetrasUsadas)}");
-
-            Console.WriteLine($"Pista: {_motor.ObtenerPista()}");
-
-            Console.Write("Palabra: ");
+            Console.Write("\nPALABRA: ");
 
             foreach (char c in _motor.PalabraSecreta)
             {
-                Console.Write(_motor.LetrasUsadas.Contains(c) ? c : '_');
+                if (_motor.LetrasUsadas.Contains(c))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"{c} ");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("_ ");
+                }
             }
 
-            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine("\n\n========================================");
         }
 
         public string PedirEntrada()
         {
             while (true)
             {
-                Console.Write("\nIngresa una letra o palabra: ");
+                Console.ForegroundColor = ConsoleColor.White;
+
+                Console.Write("\n> Ingresa letra o palabra: ");
 
                 string entrada = Console.ReadLine()!.Trim().ToLower();
 
                 if (string.IsNullOrWhiteSpace(entrada))
                 {
-                    Console.WriteLine("No puedes dejar el campo vacío.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("ERROR: Entrada vacía.");
                     continue;
                 }
 
@@ -63,7 +92,8 @@ namespace Ahorcado
 
                 if (!valido)
                 {
-                    Console.WriteLine("Solo puedes usar letras y números.");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("ERROR: Solo letras y números.");
                     continue;
                 }
 
@@ -73,23 +103,83 @@ namespace Ahorcado
 
         public void MostrarMensaje(string mensaje)
         {
-            Console.WriteLine(mensaje);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n>>> {mensaje}");
         }
 
         private void MostrarAhorcado()
         {
             string[] etapas = new string[]
             {
-                " -----\n | |\n |\n |\n |\n |\n=========",
-                " -----\n | |\n O |\n |\n |\n |\n=========",
-                " -----\n | |\n O |\n | |\n |\n |\n=========",
-                " -----\n | |\n O |\n/| |\n |\n |\n=========",
-                " -----\n | |\n O |\n/|\\\\ |\n |\n |\n=========",
-                " -----\n | |\n O |\n/|\\\\ |\n/ |\n |\n=========",
-                " -----\n | |\n O |\n/|\\\\ |\n/ \\\\ |\n |\n========="
+                @"
+  +-------+
+  |
+  |
+  |
+  |
+  |
+=================",
+
+                @"
+  +-------+
+  |       O
+  |
+  |
+  |
+  |
+=================",
+
+                @"
+  +-------+
+  |       O
+  |       |
+  |
+  |
+  |
+=================",
+
+                @"
+  +-------+
+  |       O
+  |      /|
+  |
+  |
+  |
+=================",
+
+                @"
+  +-------+
+  |       O
+  |      /|\
+  |
+  |
+  |
+=================",
+
+                @"
+  +-------+
+  |       O
+  |      /|\
+  |      /
+  |
+  |
+=================",
+
+                @"
+  +-------+
+  |       X
+  |      /|\
+  |      / \
+  |
+  |
+================="
             };
 
-            Console.WriteLine(etapas[6 - _motor.IntentosRestantes]);
+            int etapa = 6 - _motor.IntentosRestantes;
+
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            Console.WriteLine(etapas[etapa]);
         }
     }
 }

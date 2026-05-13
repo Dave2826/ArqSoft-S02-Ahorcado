@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 
 namespace Ahorcado
 {
@@ -6,10 +7,35 @@ namespace Ahorcado
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("¿Qué juego quieres jugar?");
-            Console.WriteLine("1 — Ahorcado");
-            Console.WriteLine("2 — Viborita");
-            Console.Write("Opción: ");
+            Console.Title = "ARQSOFT ARCADE";
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine("Inicializando sistema...");
+            Thread.Sleep(700);
+
+            Console.WriteLine("Cargando modulos...");
+            Thread.Sleep(700);
+
+            Console.WriteLine("Conectando al nucleo...");
+            Thread.Sleep(700);
+
+            Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine("==================================");
+            Console.WriteLine("       ARQSOFT ARCADE");
+            Console.WriteLine("==================================");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\n[1] AHORCADO");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("[2] VIBORITA");
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("\nSelecciona modo: ");
 
             string opcion = Console.ReadLine();
 
@@ -35,15 +61,15 @@ namespace Ahorcado
 
                     motorViborita.Avanzar();
 
-                    Thread.Sleep(150);
+                    Thread.Sleep(Math.Max(60, 150 - motorViborita.Puntos * 8));
                 }
 
                 uiViborita.MostrarTablero();
 
                 uiViborita.MostrarMensaje(
                     motorViborita.Ganado()
-                    ? "\n¡Ganaste! Llegaste a 10 puntos."
-                    : "\nGame over."
+                    ? "\nMISIÓN COMPLETADA."
+                    : "\nSISTEMA COLAPSADO."
                 );
             }
             else
@@ -66,7 +92,7 @@ namespace Ahorcado
 
                         if (motor.LetraYaUsada(letra))
                         {
-                            ui.MostrarMensaje("Ya usaste esa letra.");
+                            ui.MostrarMensaje("Letra ya utilizada.");
                             continue;
                         }
 
@@ -78,11 +104,11 @@ namespace Ahorcado
 
                         if (correcto)
                         {
-                            ui.MostrarMensaje("Adivinaste la palabra completa.");
+                            ui.MostrarMensaje("PALABRA DESCIFRADA.");
                         }
                         else
                         {
-                            ui.MostrarMensaje("Palabra incorrecta.");
+                            ui.MostrarMensaje("ACCESO DENEGADO.");
                         }
                     }
                 }
@@ -91,13 +117,15 @@ namespace Ahorcado
 
                 if (motor.Ganado())
                 {
-                    ui.MostrarMensaje("\nGanaste. El barrio gamer/motociclista te respalda.");
+                    ui.MostrarMensaje("\nMISIÓN COMPLETADA.");
                 }
                 else
                 {
-                    ui.MostrarMensaje($"\nPerdiste. La palabra era: {motor.PalabraSecreta}. Te faltó barrio.");
+                    ui.MostrarMensaje($"\nSISTEMA FALLIDO. La palabra era: {motor.PalabraSecreta}");
                 }
             }
+
+            Console.ResetColor();
         }
     }
 }

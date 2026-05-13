@@ -16,12 +16,24 @@ namespace Ahorcado
         {
             Console.SetCursorPosition(0, 0);
 
-            Console.WriteLine($"=== VIBORITA ===   Puntos: {_motor.Puntos}");
+            Console.ForegroundColor = ConsoleColor.Cyan;
 
-            Console.WriteLine("+" + new string('-', _motor.Ancho) + "+");
+            Console.WriteLine("========================================");
+            Console.WriteLine("         NEON SNAKE PROTOCOL");
+            Console.WriteLine("========================================");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+            Console.WriteLine($"SCORE: {_motor.Puntos}   |   TARGET: 10");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+            Console.WriteLine("+" + new string('-', _motor.Ancho * 2) + "+");
 
             for (int y = 0; y < _motor.Alto; y++)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+
                 Console.Write("|");
 
                 for (int x = 0; x < _motor.Ancho; x++)
@@ -30,28 +42,35 @@ namespace Ahorcado
 
                     if (_motor.Cuerpo.First() == pos)
                     {
-                        Console.Write("@");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("██");
                     }
                     else if (_motor.Cuerpo.Contains(pos))
                     {
-                        Console.Write("o");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.Write("▓▓");
                     }
                     else if (_motor.Comida == pos)
                     {
-                        Console.Write("*");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("◉ ");
                     }
                     else
                     {
-                        Console.Write(" ");
+                        Console.Write("  ");
                     }
                 }
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
 
                 Console.WriteLine("|");
             }
 
-            Console.WriteLine("+" + new string('-', _motor.Ancho) + "+");
+            Console.WriteLine("+" + new string('-', _motor.Ancho * 2) + "+");
 
-            Console.WriteLine("Flechas = mover | Q = salir");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+
+            Console.WriteLine("\nFLECHAS = mover | Q = salir");
         }
 
         public ConsoleKey LeerTecla()
@@ -66,7 +85,8 @@ namespace Ahorcado
 
         public void MostrarMensaje(string mensaje)
         {
-            Console.WriteLine(mensaje);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n>>> {mensaje}");
         }
     }
 }
