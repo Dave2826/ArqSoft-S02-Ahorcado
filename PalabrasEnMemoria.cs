@@ -6,43 +6,55 @@ namespace Ahorcado
     public class PalabrasEnMemoria : IRepositorioPalabras
     {
         private readonly Dictionary<string, List<string>> _categorias = new()
+{
+    {
+        "Programación",
+        new List<string>
         {
-            {
-                "Programación",
-                new List<string>
-                {
-                    "arquitectura",
-                    "interfaz",
-                    "polimorfismo",
-                    "encapsulamiento",
-                    "herencia"
-                }
-            },
+            "backend",
+            "frontend",
+            "docker",
+            "visualstudio",
+            "bug"
+        }
+    },
 
-            {
-                "Videojuegos",
-                new List<string>
-                {
-                    "minecraft",
-                    "zelda",
-                    "warzone",
-                    "fortnite",
-                    "halo"
-                }
-            },
+    {
+        "Videojuegos",
+        new List<string>
+        {
+            "minecraft",
+            "warzone",
+            "valorant",
+            "halo",
+            "fortnite"
+        }
+    },
 
-            {
-                "Motos",
-                new List<string>
-                {
-                    "kawasaki",
-                    "yamaha",
-                    "ducati",
-                    "bmw",
-                    "honda"
-                }
-            }
-        };
+    {
+        "Motos",
+        new List<string>
+        {
+            "kawasaki",
+            "ducati",
+            "ninja400",
+            "panigale",
+            "bmws1000rr"
+        }
+    },
+
+    {
+        "Heroes",
+        new List<string>
+        {
+            "batman",
+            "deadpool",
+            "punisher",
+            "wolverine",
+            "spiderman"
+        }
+    }
+};
 
         public string CategoriaActual { get; private set; } = "";
 

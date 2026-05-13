@@ -29,11 +29,11 @@
 
             if (motor.Ganado())
             {
-                ui.MostrarMensaje("\nGanaste.");
+                ui.MostrarMensaje("\nGanaste. El barrio gamer te respalda.");
             }
             else
             {
-                ui.MostrarMensaje($"\nPerdiste. La palabra era: {motor.PalabraSecreta}");
+                ui.MostrarMensaje($"\nPerdiste. La palabra era: {motor.PalabraSecreta}. Te faltó barrio.");
             }
         }
     }
