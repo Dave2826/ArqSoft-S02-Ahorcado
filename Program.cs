@@ -1,57 +1,102 @@
-﻿namespace Ahorcado
+﻿using System.Threading;
+
+namespace Ahorcado
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            PalabrasEnMemoria repositorio = new PalabrasEnMemoria();
+            Console.WriteLine("¿Qué juego quieres jugar?");
+            Console.WriteLine("1 — Ahorcado");
+            Console.WriteLine("2 — Viborita");
+            Console.Write("Opción: ");
 
-            MotorAhorcado motor = new MotorAhorcado(repositorio);
+            string opcion = Console.ReadLine();
 
-            ConsolaUI ui = new ConsolaUI(motor, repositorio);
-
-            while (!motor.Ganado() && !motor.Perdido())
+            if (opcion == "2")
             {
-                ui.MostrarTablero();
+                var motorViborita = new MotorViborita();
 
-                string entrada = ui.PedirEntrada();
+                var uiViborita = new ConsolaUIViborita(motorViborita);
 
-                if (entrada.Length == 1)
+                Console.CursorVisible = false;
+
+                while (!motorViborita.Ganado() && !motorViborita.Perdido())
                 {
-                    char letra = entrada[0];
+                    uiViborita.MostrarTablero();
 
-                    if (motor.LetraYaUsada(letra))
-                    {
-                        ui.MostrarMensaje("Ya usaste esa letra.");
-                        continue;
-                    }
+                    var tecla = uiViborita.LeerTecla();
 
-                    motor.RegistrarLetra(letra);
+                    if (tecla == ConsoleKey.Q)
+                        break;
+
+                    if (tecla != ConsoleKey.NoName)
+                        motorViborita.CambiarDireccion(tecla);
+
+                    motorViborita.Avanzar();
+
+                    Thread.Sleep(150);
                 }
-                else
-                {
-                    bool correcto = motor.IntentarResolver(entrada);
 
-                    if (correcto)
-                    {
-                        ui.MostrarMensaje("Adivinaste la palabra completa.");
-                    }
-                    else
-                    {
-                        ui.MostrarMensaje("Palabra incorrecta.");
-                    }
-                }
-            }
+                uiViborita.MostrarTablero();
 
-            ui.MostrarTablero();
-
-            if (motor.Ganado())
-            {
-                ui.MostrarMensaje("\nGanaste. El barrio gamer/motociclista te respalda.");
+                uiViborita.MostrarMensaje(
+                    motorViborita.Ganado()
+                    ? "\n¡Ganaste! Llegaste a 10 puntos."
+                    : "\nGame over."
+                );
             }
             else
             {
-                ui.MostrarMensaje($"\nPerdiste. La palabra era: {motor.PalabraSecreta}. Te faltó barrio.");
+                PalabrasEnMemoria repositorio = new PalabrasEnMemoria();
+
+                MotorAhorcado motor = new MotorAhorcado(repositorio);
+
+                ConsolaUI ui = new ConsolaUI(motor, repositorio);
+
+                while (!motor.Ganado() && !motor.Perdido())
+                {
+                    ui.MostrarTablero();
+
+                    string entrada = ui.PedirEntrada();
+
+                    if (entrada.Length == 1)
+                    {
+                        char letra = entrada[0];
+
+                        if (motor.LetraYaUsada(letra))
+                        {
+                            ui.MostrarMensaje("Ya usaste esa letra.");
+                            continue;
+                        }
+
+                        motor.RegistrarLetra(letra);
+                    }
+                    else
+                    {
+                        bool correcto = motor.IntentarResolver(entrada);
+
+                        if (correcto)
+                        {
+                            ui.MostrarMensaje("Adivinaste la palabra completa.");
+                        }
+                        else
+                        {
+                            ui.MostrarMensaje("Palabra incorrecta.");
+                        }
+                    }
+                }
+
+                ui.MostrarTablero();
+
+                if (motor.Ganado())
+                {
+                    ui.MostrarMensaje("\nGanaste. El barrio gamer/motociclista te respalda.");
+                }
+                else
+                {
+                    ui.MostrarMensaje($"\nPerdiste. La palabra era: {motor.PalabraSecreta}. Te faltó barrio.");
+                }
             }
         }
     }
